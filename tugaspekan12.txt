@@ -1,0 +1,83 @@
+NOMOR 1
+
+kamus
+constant nMAX : integer = 2022
+type student : < name, sid : string ; gpa : real >
+type tabMhs : array [0..nMAX-1] of student
+
+procedure mengurutkan(in/out A : tabMhs, in n : integer)
+kamus
+	pass, idx, i : integer
+	temp : real
+algoritma
+	pass <- 1
+	while pass <= n-1 do
+		idx <- pass-1
+		i <- pass
+		while i < n do
+			if A[i].gpa < A[idx].gpa then
+				idx <- i
+			endif
+			i <- i+1
+		endwhile
+		temp <- A[pass-1].gpa
+		A[pass-1] <- A[idx]
+		A[idx].gpa <- temp
+		pass <- pass+1
+	endwhile
+endprocedure
+
+
+NOMOR 2
+
+kamus
+constant MAX : integer = 30
+type IntArray < tabInt : array [1..MAX] of integer, N : integer >
+array1, array2 : IntArray
+
+procedure inputArray(in/out T: IntArray)
+kamus
+	masukan : integer
+algoritma
+	T.N <- 1
+	input(masukan)
+	while masukan != 0 and T.N <= MAX do
+		T.tabInt[T.N] <- masukan
+		T.N <- T.N + 1
+		input(masukan)
+	endwhile
+endprocedure
+
+procedure sortArray(in/out T: IntArray)
+kamus
+	pass, idx, i, temp : integer
+algoritma
+	pass <- 1
+	while pass <= T.N do
+		idx <- pass
+		i <- pass + 1
+		while i <= T.N do
+			if T.tabInt[i] < T.tabInt[idx] then
+				idx <- i
+			endif
+			i <- i+1
+		endwhile
+		temp <- T.tabInt[pass-1]
+		T.tabInt[pass-1] <- T.tabInt[idx]
+		T.tabInt[idx] <- temp
+		pass <- pass+1
+	endwhile
+endprocedure
+
+function isSimilar(T1, T2 : IntArray) -> boolean
+	if T1.N != T2.N then
+		return false
+	endif
+	for i <- 0 to T1.N - 1 do
+		if T1.tabInt[i] != T2.tabInt[i] then
+			return false
+		endif
+	endfor
+	return true
+endfunction
+

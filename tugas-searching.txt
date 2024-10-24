@@ -1,0 +1,115 @@
+Nomor 1
+
+constant nMax : integer <- 20 {asumsi range dari tabelFrekuensi}
+
+type tabelFrekuensi : array [nMax]of integer
+
+function isValid(F : tabelFrekuensi) -> boolean
+kamus
+	i, j, ketemu : integer
+algoritma
+	for i <- 0 to nMax-1 do
+		if F[i] != 0 then
+			ketemu <- 0
+			for j <- 0 to nMax-1 do
+				if F[i] == F[j] then
+					ketemu <- ketemu + 1
+				endif
+				j <- j + 1
+			endfor
+			if ketemu > 1 then
+				return false
+			endif
+		endif
+		i <- i + 1
+	endfor
+	return true
+endfunction
+
+Nomor 2
+
+{karena asumsinya himpunan sudah valid, maka himpunan tidak perlu dicek menggunakan fungsi isValid()}
+
+constant nMax : integer <- 100
+
+type himpunan : array [nMax]of integer
+
+function mengiris(A, B : himpunan) -> himpunan
+kamus
+	irisan : himpunan
+	i, j : integer
+algoritma
+	j <- 0
+	for i <- 0 to nMax-1 do
+		if A[i] != 0 AND ada(B, A[i]) then
+			irisan[j] <- A[i]
+			j <- j + 1
+		endif
+		i <- i + 1
+	endfor
+	return irisan
+endfunction
+
+function ada(B : himpunan, angka : integer) -> boolean
+kamus
+	i : integer
+algoritma
+	for i <- 0 to nMax-1 do
+		if B[i] == angka then
+			return true
+		endif
+		i <- i + 1
+	endfor
+	return false
+endfunction
+
+Nomor 3
+
+{karena asumsinya himpunan sudah valid, maka himpunan tidak perlu dicek menggunakan fungsi isValid()}
+
+constant nMax : integer <- 100
+
+type himpunan : array [nMax]of integer
+
+function menggabungkan(A, B : himpunan) -> himpunan
+kamus
+	gabungan : himpunan
+	i, j : integer
+algoritma
+	gabungan <- A
+	j <- panjangHimpunan(A) - 1
+	for i <- 0 to nMax-1 do
+		if B[i] != 0 AND ada(A, B[i]) != true then
+			gabungan[j] <- B[i]
+			j <- j + 1
+		endif
+		i <- i + 1
+	endfor
+	return gabungan
+endfunction
+
+function ada(B : himpunan, angka : integer) -> boolean
+kamus
+	i : integer
+algoritma
+	for i <- 0 to nMax-1 do
+		if B[i] == angka then
+			return true
+		endif
+		i <- i + 1
+	endfor
+	return false
+endfunction
+
+function panjangHimpunan(A himpunan) -> integer
+kamus
+	panjang, i : integer
+algoritma
+	panjang <- 0
+	for i <- 0 to nMax-1 do
+		if A[i] != 0 then
+			panjang <- panjang + 1
+		endif
+	endfor
+	return panjang
+endfunction
